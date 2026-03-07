@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For You 💗</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700;800&family=Dancing+Script:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="sticker-layer" aria-hidden="true">
+    <span class="sticker s1">🧸</span>
+    <span class="sticker s2">🧸</span>
+    <span class="sticker s3">🐻</span>
+    <span class="sticker s4">🧸</span>
+    <span class="sticker s5">🐻</span>
+    <span class="sticker s6">🧸</span>
+  </div>
+
+  <!-- LOCK SCREEN -->
+  <main id="lockScreen" class="screen screen--center">
+    <section class="card lock-card">
+      <div class="lock-photo-wrap">
+        <img class="lock-photo" src="assets/lock.jpg" alt="lock photo"
+             onerror="this.src='https://picsum.photos/200/200?random=lock'; this.onerror=null;" />
+      </div>
+
+      <div class="heart">💗</div>
+
+      <div class="dots" aria-label="passcode dots">
+        <span class="dot" data-i="0"></span>
+        <span class="dot" data-i="1"></span>
+        <span class="dot" data-i="2"></span>
+        <span class="dot" data-i="3"></span>
+      </div>
+
+      <div class="pad">
+        <button class="key" data-k="1">1</button>
+        <button class="key" data-k="2">2</button>
+        <button class="key" data-k="3">3</button>
+        <button class="key" data-k="4">4</button>
+        <button class="key" data-k="5">5</button>
+        <button class="key" data-k="6">6</button>
+        <button class="key" data-k="7">7</button>
+        <button class="key" data-k="8">8</button>
+        <button class="key" data-k="9">9</button>
+
+        <div class="pad-row">
+          <div class="pad-spacer"></div>
+          <button class="key key--zero" data-k="0">0</button>
+          <button class="key key--del" id="delKey" aria-label="delete">⌫</button>
+        </div>
+      </div>
+
+      <p class="hint" id="lockHint">Nhập mật khẩu để mở khóa</p>
+    </section>
+  </main>
+
+  <!-- MENU SCREEN -->
+  <main id="menuScreen" class="screen screen--center hidden">
+    <section class="card menu-card">
+      <div class="menu-list">
+        <button class="menu-item" data-open="music">
+          <div class="menu-ico">🎵</div>
+          <div class="menu-title">Music</div>
+        </button>
+        <button class="menu-item" data-open="letter">
+          <div class="menu-ico">💌</div>
+          <div class="menu-title">Letter</div>
+        </button>
+        <button class="menu-item" data-open="image">
+          <div class="menu-ico">🖼️</div>
+          <div class="menu-title">Image</div>
+        </button>
+        <button class="menu-item" data-open="gift">
+          <div class="menu-ico">🎁</div>
+          <div class="menu-title">Gift</div>
+        </button>
+      </div>
+
+      <div class="tiny-note">Chạm vào từng mục nha 💗</div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-panel">
+      <button class="modal-close" id="modalClose" aria-label="close">✕</button>
+
+      <!-- MUSIC -->
+      <section id="panel-music" class="panel hidden">
+        <h2 class="panel-title"><span class="mini-ico">🎵</span> MUSIC PLAYER</h2>
+
+        <div class="music-player">
+          <div class="music-cover" id="musicCover"></div>
+
+          <div class="music-meta">
+            <div class="music-name" id="musicName">—</div>
+            <div class="music-sub">For you 💗</div>
+          </div>
+
+          <div class="progress">
+            <span id="timeNow">0:00</span>
+            <input id="seek" type="range" min="0" max="100" value="0" />
+            <span id="timeEnd">0:00</span>
+          </div>
+
+          <div class="controls">
+            <button class="ctrl" id="prevBtn" title="Prev">⏮</button>
+            <button class="ctrl ctrl--play" id="playBtn" title="Play/Pause">▶</button>
+            <button class="ctrl" id="nextBtn" title="Next">⏭</button>
+          </div>
+        </div>
+
+        <div class="playlist" id="playlist"></div>
+      </section>
+
+      <!-- IMAGE -->
+      <section id="panel-image" class="panel hidden">
+        <h2 class="panel-title"><span class="mini-ico">🖼️</span> IMAGE</h2>
+
+        <div class="gallery-2row">
+          <div class="marquee-wrap">
+            <div class="marquee marquee-left" id="row1"></div>
+          </div>
+          <div class="marquee-wrap">
+            <div class="marquee marquee-right" id="row2"></div>
+          </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true">
+          <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+          <img id="lightboxImg" class="lightbox-img" alt="preview" />
+        </div>
+      </section>
+
+      <!-- LETTER -->
+      <section id="panel-letter" class="panel hidden">
+        <h2 class="panel-title"><span class="mini-ico">💌</span> LETTER</h2>
+
+        <div class="letter">
+          <div class="letter-top">Dear Yukii yêu dấu💗</div>
+          <div class="letter-body" id="letterBody"></div>
+          <div class="letter-bottom">— duy, love you forever ✨</div>
+        </div>
+
+        <div class="letter-actions">
+          <button class="cute-btn" id="replayLetter">Viết lại ✍️</button>
+          <button class="cute-btn" id="skipLetter">Hiện hết ⚡</button>
+        </div>
+      </section>
+
+      <!-- GIFT -->
+      <section id="panel-gift" class="panel hidden">
+        <h2 class="panel-title"><span class="mini-ico">🎁</span> GIFT</h2>
+
+        <div class="gift-stage" id="giftStage">
+          <div class="gift-message">
+            <div class="gift-big">Yêu vợ nhiều nhắmmm 💗 </div>
+            <div class="gift-small">Click cho hoa nở nhá nhá</div>
+          </div>
+        </div>
+
+        <div class="gift-actions">
+          <button class="cute-btn" id="moreFlowers">Thêm hoa 🌸</button>
+          <button class="cute-btn" id="resetFlowers">Làm lại ♻️</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- YouTube player: đặt ngoài panel ẩn để trình phát khởi tạo đúng -->
+  <div id="ytPlayer" class="yt-player"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
